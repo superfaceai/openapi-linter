@@ -2,7 +2,7 @@
 
 ![TypeScript](https://img.shields.io/badge/%3C%2F%3E-Typescript-blue)
 
-Simple CLI to validate OpenAPI specification. Takes url or filepath as an input.
+Simple CLI to validate OpenAPI specification. Takes url or filepath as an input. It uses Spectral extended OAS and AsyncApi ruleset.
 
 ## Usage
 
@@ -24,7 +24,7 @@ DESCRIPTION
   Lints OpenAPI specification using three different parsers/validators.
 
 EXAMPLES
-  $ oal lint https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml
+  $ oal lint https://raw.githubusercontent.com/swagger-api/swagger-petstore/master/src/main/resources/openapi.yaml
 
   $ oal lint examples/petstore.yaml
 ```
