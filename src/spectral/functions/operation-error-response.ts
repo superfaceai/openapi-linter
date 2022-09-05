@@ -21,7 +21,7 @@ export default createRulesetFunction(
 
     if (
       Object.keys(input).some(response =>
-        /(40[0-9]|4[1-9][0-9]|500)/.test(response)
+        /(40[0-9]|4[1-9][0-9]|5[0-9]{2})/.test(response)
       )
     ) {
       return;
@@ -30,9 +30,17 @@ export default createRulesetFunction(
     if (
       isOAS3X &&
       Object.keys(input).some(
-        response => response === '4XX' || response === '5XX'
+        response =>
+          response === '4XX' ||
+          response === '5XX' ||
+          response === '4xx' ||
+          response === '5xx'
       )
     ) {
+      return;
+    }
+
+    if (Object.keys(input).some(key => key === 'default')) {
       return;
     }
 
