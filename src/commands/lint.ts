@@ -1,15 +1,13 @@
-import { Command } from '@oclif/core';
-import { Flags as oclifFlags } from '@oclif/core';
-
+import { Command, Flags as oclifFlags } from '@oclif/core';
+import { CLIError } from '@oclif/errors';
+import { DiagnosticSeverity } from '@stoplight/types';
 import { gray, green, red, yellow } from 'chalk';
 import fetch from 'cross-fetch';
 import fs from 'fs/promises';
 import { URL } from 'url';
-import { format } from '../spectral/format';
-import { DiagnosticSeverity } from '@stoplight/types';
 
+import { format } from '../spectral/format';
 import { lint } from '../spectral/run';
-import { CLIError } from '@oclif/errors';
 
 export type Log = (...args: unknown[]) => void;
 
@@ -66,7 +64,7 @@ export class Lint extends Command {
       this.exit();
     }
 
-    const pathOrUrl: string = args.specificationPath;
+    const pathOrUrl: string = args.specificationPath as string;
     const extension = resolveExtension(pathOrUrl, flags.fileFormat);
 
     let specificationName: string;

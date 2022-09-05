@@ -2,7 +2,9 @@ import { RulesetDefinition } from '@stoplight/spectral-core';
 import { oas2, oas3 } from '@stoplight/spectral-formats';
 import { falsy } from '@stoplight/spectral-functions';
 import { asyncapi, oas } from '@stoplight/spectral-rulesets';
+import { DiagnosticSeverity } from '@stoplight/types';
 
+import missingInputSchema from './functions/missing-input-schema';
 import operationErrorResponse from './functions/operation-error-response';
 
 //This structure represents rules that we are using to lint OAS
@@ -73,6 +75,17 @@ export const rules: RulesetDefinition = {
         function: operationErrorResponse,
       },
       formats: [oas2],
+    },
+    'sf-missing-input-schema': {
+      description:
+        'Operation with POST/PUT/PATCH/DELETE http method should define parameters',
+      severity: DiagnosticSeverity.Error,
+      given: '$.paths',
+      recommended: true,
+      then: {
+        function: missingInputSchema,
+      },
+      formats: [oas3, oas2],
     },
   },
 };
