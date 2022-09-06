@@ -5,6 +5,7 @@ import { asyncapi, oas } from '@stoplight/spectral-rulesets';
 import { DiagnosticSeverity } from '@stoplight/types';
 
 import missingInputSchema from './functions/missing-input-schema';
+import contentNegotiation from './functions/oas2-content-negotiation';
 import operationErrorResponse from './functions/operation-error-response';
 
 //This structure represents rules that we are using to lint OAS
@@ -77,8 +78,6 @@ export const rules: RulesetDefinition = {
       formats: [oas2],
     },
     'sf-missing-input-schema': {
-      description:
-        'Operation with POST/PUT/PATCH/DELETE http method should define parameters',
       severity: DiagnosticSeverity.Error,
       given: '$.paths',
       recommended: true,
@@ -86,6 +85,15 @@ export const rules: RulesetDefinition = {
         function: missingInputSchema,
       },
       formats: [oas3, oas2],
+    },
+    'sf-oas2-content-negotiation': {
+      severity: DiagnosticSeverity.Error,
+      given: '$',
+      recommended: true,
+      then: {
+        function: contentNegotiation,
+      },
+      formats: [oas2],
     },
   },
 };
