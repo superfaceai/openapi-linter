@@ -6,6 +6,8 @@ import { DiagnosticSeverity } from '@stoplight/types';
 
 import missingInputSchema from './functions/missing-input-schema';
 import contentNegotiation from './functions/oas2-content-negotiation';
+import oas2UnsupportedMediaType from './functions/oas2-unsupported-media-type';
+import oas3UnsupportedMediaType from './functions/oas3-unsupported-media-type';
 import operationErrorResponse from './functions/operation-error-response';
 
 //This structure represents rules that we are using to lint OAS
@@ -17,7 +19,8 @@ export const rules: RulesetDefinition = {
     [asyncapi as RulesetDefinition, 'all'],
   ],
   //TODO: overide severity of selected rules
-  //Define custom rules
+  //TODO: be able to turn off rulas that are automaton specific and represnts some unsupported features (media type, allOf, security schemas)
+  //custom rules
   rules: {
     'sf-oas3-allOf': {
       description: '"allOf" keyword must not be used in OpenAPI v3 document.',
@@ -92,6 +95,26 @@ export const rules: RulesetDefinition = {
       recommended: true,
       then: {
         function: contentNegotiation,
+      },
+      formats: [oas2],
+    },
+
+    'sf-oas3-unsupported-media-type': {
+      severity: DiagnosticSeverity.Error,
+      given: '$.paths.[*][get,post,put,delete,options]',
+      recommended: true,
+      then: {
+        function: oas3UnsupportedMediaType,
+      },
+      formats: [oas3],
+    },
+
+    'sf-oas2-unsupported-media-type': {
+      severity: DiagnosticSeverity.Error,
+      given: '$',
+      recommended: true,
+      then: {
+        function: oas2UnsupportedMediaType,
       },
       formats: [oas2],
     },
