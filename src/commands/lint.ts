@@ -138,7 +138,7 @@ function resolveExtension(
     return 'json';
   }
 
-  throw new Error(
+  throw new CLIError(
     `Path: "${pathOrUrl}" does not ends with supoported extensions ("yaml" or "json"). You can pass extension as flag`
   );
 }

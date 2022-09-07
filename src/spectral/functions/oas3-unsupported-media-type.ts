@@ -6,6 +6,7 @@ import { JsonPath } from '@stoplight/types';
 import { OpenAPIV3 } from 'openapi-types';
 
 const JSON_CONTENT = 'application/json';
+const TEXT_PLAIN = 'text/plain';
 const JSON_PROBLEM_CONTENT = 'application/problem+json';
 const URLENCODED_CONTENT = 'application/x-www-form-urlencoded';
 const FORMDATA_CONTENT = 'multipart/form-data';
@@ -18,6 +19,7 @@ const BINARY_CONTENT_TYPES = [
 
 export const supportedTypes = [
   JSON_CONTENT,
+  TEXT_PLAIN,
   JSON_PROBLEM_CONTENT,
   URLENCODED_CONTENT,
   FORMDATA_CONTENT,
