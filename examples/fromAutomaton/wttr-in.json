@@ -1,0 +1,202 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "wttr.in",
+    "description": "Get current weather in specified city.",
+    "version": "0.0.0",
+    "contact": {
+      "name": "wttr.in",
+      "url": "https://github.com/chubin/wttr.in"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://wttr.in"
+    }
+  ],
+  "paths": {
+    "/{city}": {
+      "get": {
+        "tags": ["Current Weather Data"],
+        "summary": "Call current weather data for one location",
+        "description": "Access current weather data for any city.",
+        "operationId": "CurrentWeatherData",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "path",
+            "description": "City name",
+            "required": true,
+            "example": "Prague",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "Format of response",
+            "example": "j1",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Bad request",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Weather not found",
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Current Weather Data",
+      "description": "Get current weather details"
+    }
+  ],
+  "externalDocs": {
+    "description": "API Documentation",
+    "url": "https://github.com/chubin/wttr.in"
+  },
+  "components": {
+    "schemas": {
+      "200": {
+        "title": "Successful response",
+        "type": "object",
+        "properties": {
+          "current_condition": {
+            "$ref": "#/components/schemas/current_condition"
+          }
+        }
+      },
+      "current_condition": {
+        "title": "current_condition",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "temp_F": {
+              "type": "string",
+              "description": "Temperature in fahrenheit"
+            },
+            "temp_C": {
+              "description": "Temperature in celsius",
+              "type": "string"
+            },
+            "FeelsLikeF": {
+              "description": "Subjective temperature in fahrenheits",
+              "type": "string"
+            },
+            "FeelsLikeC": {
+              "description": "Subjective temperature in celsius",
+              "type": "string"
+            },
+            "cloudcover": {
+              "type": "string"
+            },
+            "humidity": {
+              "type": "string"
+            },
+            "observation_time": {
+              "type": "string"
+            },
+            "precipMM": {
+              "type": "string"
+            },
+            "pressure": {
+              "type": "string"
+            },
+            "uvIndex": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            },
+            "weatherCode": {
+              "description": "https://github.com/chubin/wttr.in/blob/master/lib/constants.py",
+              "type": "string"
+            },
+            "weatherDesc": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "weatherIconUrl": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "winddir16Point": {
+              "type": "string"
+            },
+            "winddirDegree": {
+              "type": "string"
+            },
+            "windspeedKmph": {
+              "type": "string"
+            },
+            "windspeedMiles": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
