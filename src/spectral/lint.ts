@@ -12,6 +12,7 @@ export async function lint(
   specification: string,
   extension: 'json' | 'yaml',
   specificationName: string
+  //TODO: custom type instead of spectral?
 ): Promise<ISpectralDiagnostic[]> {
   let document;
 

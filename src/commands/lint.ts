@@ -7,13 +7,13 @@ import fs from 'fs/promises';
 import { URL } from 'url';
 
 import { format } from '../spectral/format';
-import { lint } from '../spectral/run';
+import { lint } from '../spectral/lint';
 
 export type Log = (...args: unknown[]) => void;
 
 export class Lint extends Command {
-  static description = `Lints OpenAPI specification using three different parsers/validators.
-`;
+  static description =
+    'Lints OpenAPI specification using three different parsers/validators.';
 
   static args = [
     {
