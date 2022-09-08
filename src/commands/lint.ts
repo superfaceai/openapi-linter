@@ -82,7 +82,12 @@ export class Lint extends Command {
       specificationName = pathOrUrl;
     }
 
-    const lintResult = await lint(specification, extension, specificationName);
+    const lintResult = await lint(
+      specification,
+      extension,
+      true,
+      specificationName
+    );
 
     // print formated result
     if (lintResult.length > 0) {

@@ -5,13 +5,14 @@ import {
 } from '@stoplight/spectral-core';
 import * as Parsers from '@stoplight/spectral-parsers';
 
-import { rules } from './ruleset';
+import { prepareRuleset } from './ruleset';
 
 //This should be possible to use as Automaton dependency
 export async function lint(
   specification: string,
   extension: 'json' | 'yaml',
-  specificationName: string
+  includeAutomatonSpecificRules = true,
+  specificationName?: string
   //TODO: custom type instead of spectral?
 ): Promise<ISpectralDiagnostic[]> {
   let document;
@@ -23,7 +24,7 @@ export async function lint(
   }
 
   const spectral = new Spectral();
-  spectral.setRuleset(rules);
+  spectral.setRuleset(prepareRuleset(includeAutomatonSpecificRules));
 
   return spectral.run(document);
 }
