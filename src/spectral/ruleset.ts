@@ -107,15 +107,26 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     formats: [oas2],
   },
   'sf-oas3-nullable-property': {
-    severity: 'error',
+    severity: 'warn',
     message:
-      "Specification does not define single nullable property - please check that all of the properties can't be null",
+      "Specification does not define single nullable property - please check that you didn't forget to mark nullable properties",
     given: '$..nullable',
     recommended: true,
     then: {
       function: truthy,
     },
     formats: [oas3],
+  },
+  'sf-missing-operaion-summary': {
+    severity: 'hint',
+    message: "Operation must have non-empty summary property",
+    given: '#OperationObject',
+    recommended: true,
+    then: {
+      field: 'summary',
+      function: truthy,
+    },
+    formats: [oas3, oas2],
   },
 };
 
