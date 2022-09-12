@@ -1,7 +1,7 @@
 import { RuleDefinition, RulesetDefinition } from '@stoplight/spectral-core';
 import { FileRuleDefinition } from '@stoplight/spectral-core/dist/ruleset/types';
 import { oas2, oas3, oas3_0, oas3_1 } from '@stoplight/spectral-formats';
-import { falsy, truthy } from '@stoplight/spectral-functions';
+import { falsy, truthy, undefined as Undefined } from '@stoplight/spectral-functions';
 import { oas } from '@stoplight/spectral-rulesets';
 
 import missingInputSchema from './functions/missing-input-schema';
@@ -16,7 +16,7 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     severity: 'warn',
     given: '$..allOf',
     recommended: true,
-    message: '"allOf" keyword must not be used in OpenAPI v3 document.',
+    message: '"allOf" keyword is not supported in integration designer.',
     then: {
       function: falsy,
     },
@@ -24,11 +24,11 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
   },
 
   'sf-oas3-anyOf': {
-    description: '"anyOf" keyword must not be used in OpenAPI v3 document.',
+    description: '"anyOf" keyword is not supported in integration designer',
     severity: 'warn',
     given: '$..anyOf',
     recommended: true,
-    message: '"anyOf" keyword must not be used in OpenAPI v3 document.',
+    message: '"anyOf" keyword is not supported in integration designer',
     then: {
       function: falsy,
     },
@@ -36,33 +36,33 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
   },
 
   'sf-oas3-oneOf': {
-    description: '"oneOf" keyword must not be used in OpenAPI v3 document.',
+    description: '"oneOf" keyword is not supported in integration designer',
     severity: 'warn',
     given: '$..oneOf',
     recommended: true,
-    message: '"oneOf" keyword must not be used in OpenAPI v3 document.',
+    message: '"oneOf" keyword is not supported in integration designer',
     then: {
       function: falsy,
     },
     formats: [oas3],
   },
   'sf-oas2-allOf': {
-    description: '"allOf" keyword must not be used in OpenAPI v2 document.',
+    description: '"allOf" keyword is not supported in integration designer',
     severity: 'warn',
     given: '$..allOf',
     recommended: true,
-    message: '"allOf" keyword must not be used in OpenAPI v2 document.',
+    message: '"allOf" keyword is not supported in integration designer',
     then: {
       function: falsy,
     },
     formats: [oas2],
   },
   'sf-oas2-operation-error-response': {
-    description: 'Operation must define at least a single 4xx or 5xx response',
+    description: 'Operation should define at least a single 4xx or 5xx response',
     severity: 'warn',
     given: '$.paths..responses',
     recommended: true,
-    message: 'Operation must define at least a single 4xx or 5xx response',
+    message: 'Operation should define at least a single 4xx or 5xx response',
     then: {
       function: operationErrorResponse,
     },
@@ -106,6 +106,7 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     },
     formats: [oas2],
   },
+  // TODO: look into schemas with type "null"
   'sf-oas3-nullable-property': {
     severity: 'warn',
     message:
@@ -127,6 +128,36 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
       function: truthy,
     },
     formats: [oas3, oas2],
+  },
+  'sf-oas3-missing-schema-property-example': {
+    severity: 'hint',
+    message: 'Each property should define "example" value',
+    given: [
+      "$.components.schemas..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
+      "$..content..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
+      "$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]",
+      //TODO: cases when we dont have object in schema (there are no properties)
+    ],
+    recommended: true,
+    then: {
+      function: Undefined,
+    },
+    formats: [oas3],
+  },
+  'sf-oas2-missing-schema-property-example': {
+    severity: 'hint',
+    message: 'Each property should define "example" value',
+    given: [
+      "$..definitions..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
+      "$..responses[?(@ && !@.examples)]..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
+      "$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]"
+      //TODO: cases when we dont have object in schema (there are no properties)
+    ],
+    recommended: true,
+    then: {
+      function: Undefined,
+    },
+    formats: [oas2],
   },
 };
 
