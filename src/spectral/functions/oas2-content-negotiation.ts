@@ -29,10 +29,9 @@ export default createRulesetFunction(
     ) => {
       if (
         producesOrConsumes !== undefined &&
-        Array.isArray(producesOrConsumes) &&
-        producesOrConsumes.length > 0
+        Array.isArray(producesOrConsumes)
       ) {
-        return true;
+        return producesOrConsumes.length > 0;
       }
 
       return topLevelDefined;
@@ -42,11 +41,11 @@ export default createRulesetFunction(
      * Produces / consumes can be defined on top level and overriden on opertaion level
      * so we check that each opration have consumes / produces defined and not empty
      */
-    const topLevelConsumes =
+    const topLevelConsumesDefined =
       input.consumes !== undefined &&
       Array.isArray(input.consumes) &&
       input.consumes.length > 0;
-    const topLevelProduces =
+    const topLevelProducesDefined =
       input.produces !== undefined &&
       Array.isArray(input.produces) &&
       input.produces.length > 0;
@@ -56,20 +55,26 @@ export default createRulesetFunction(
 
     for (const [endpoint, endpointBody] of Object.entries(input?.paths ?? {})) {
       for (const [method, request] of Object.entries(endpointBody)) {
-        operationConsumes = isDefined(request.consumes, topLevelConsumes);
-        operationProduces = isDefined(request.produces, topLevelProduces);
+        operationConsumes = isDefined(
+          request.consumes,
+          topLevelConsumesDefined
+        );
+        operationProduces = isDefined(
+          request.produces,
+          topLevelProducesDefined
+        );
 
         if (!operationConsumes) {
           results.push({
             message: 'Operation should define "consumes" property',
-            path: [...context.path, 'paths', endpoint, method, 'consumes'],
+            path: [...context.path, 'paths', endpoint, method],
           });
         }
 
         if (!operationProduces) {
           results.push({
             message: 'Operation should define "produces" property',
-            path: [...context.path, 'paths', endpoint, method, 'produces'],
+            path: [...context.path, 'paths', endpoint, method],
           });
         }
 

@@ -1,7 +1,11 @@
 import { RuleDefinition, RulesetDefinition } from '@stoplight/spectral-core';
 import { FileRuleDefinition } from '@stoplight/spectral-core/dist/ruleset/types';
 import { oas2, oas3, oas3_0, oas3_1 } from '@stoplight/spectral-formats';
-import { falsy, truthy, undefined as Undefined } from '@stoplight/spectral-functions';
+import {
+  falsy,
+  truthy,
+  undefined as Undefined,
+} from '@stoplight/spectral-functions';
 import { oas } from '@stoplight/spectral-rulesets';
 
 import missingInputSchema from './functions/missing-input-schema';
@@ -10,13 +14,16 @@ import oas2UnsupportedMediaType from './functions/oas2-unsupported-media-type';
 import oas3UnsupportedMediaType from './functions/oas3-unsupported-media-type';
 import operationErrorResponse from './functions/operation-error-response';
 
-const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
+export const automatonSpecificRuleset: Record<
+  string,
+  Readonly<RuleDefinition>
+> = {
   'sf-oas3-allOf': {
-    description: '"allOf" keyword must not be used in OpenAPI v3 document.',
+    description: '"allOf" keyword must not be used in OpenAPI v3 document',
     severity: 'warn',
     given: '$..allOf',
     recommended: true,
-    message: '"allOf" keyword is not supported in integration designer.',
+    message: '"allOf" keyword is not supported in integration designer',
     then: {
       function: falsy,
     },
@@ -57,8 +64,9 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     },
     formats: [oas2],
   },
-  'sf-oas2-operation-error-response': {
-    description: 'Operation should define at least a single 4xx or 5xx response',
+  'sf-operation-error-response': {
+    description:
+      'Operation should define at least a single 4xx or 5xx response',
     severity: 'warn',
     given: '$.paths..responses',
     recommended: true,
@@ -66,7 +74,7 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     then: {
       function: operationErrorResponse,
     },
-    formats: [oas2],
+    formats: [oas3, oas2],
   },
   'sf-missing-input-schema': {
     severity: 'warn',
@@ -120,7 +128,7 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
   },
   'sf-missing-operaion-summary': {
     severity: 'hint',
-    message: "Operation must have non-empty summary property",
+    message: 'Operation must have non-empty summary property',
     given: '#OperationObject',
     recommended: true,
     then: {
@@ -133,9 +141,9 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     severity: 'hint',
     message: 'Each property should define "example" value',
     given: [
-      "$.components.schemas..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
-      "$..content..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
-      "$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]",
+      '$.components.schemas..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
+      '$..content..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
+      '$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]',
       //TODO: cases when we dont have object in schema (there are no properties)
     ],
     recommended: true,
@@ -148,9 +156,9 @@ const automatonSpecificRuleset: Record<string, Readonly<RuleDefinition>> = {
     severity: 'hint',
     message: 'Each property should define "example" value',
     given: [
-      "$..definitions..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
-      "$..responses[?(@ && !@.examples)]..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]",
-      "$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]"
+      '$..definitions..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
+      '$..responses[?(@ && !@.examples)]..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
+      '$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]',
       //TODO: cases when we dont have object in schema (there are no properties)
     ],
     recommended: true,

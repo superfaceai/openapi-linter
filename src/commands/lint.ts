@@ -6,8 +6,7 @@ import fetch from 'cross-fetch';
 import fs from 'fs/promises';
 import { URL } from 'url';
 
-import { format } from '../spectral/format';
-import { lint } from '../spectral/lint';
+import { format, lint } from '../spectral';
 
 export type Log = (...args: unknown[]) => void;
 
