@@ -8,7 +8,7 @@
 
 > Is your OpenAPI Spec ready for SDK generators?
 
-OpenAPI Linter is a CLI and a Node.js library to validate OpenAPI specification from URL or file path.
+OpenAPI Linter is a CLI and a Node.js library to validate OpenAPI specification.
 It is based on [Spectral] by Stoplight with [OpenAPI rules](https://meta.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules) with additional rules. The goal of Linter is to check whether the spec contains enough information to generate high quality, well documented SDK.
 We use OpenAPI Linter in [Superface Integration Designer][designer], but any client code generator benefits from well written OpenAPI specs.
 
