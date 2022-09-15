@@ -115,17 +115,19 @@ export const automatonSpecificRuleset: Record<
     formats: [oas2],
   },
   // TODO: look into schemas with type "null"
-  'sf-oas3-nullable-property': {
-    severity: 'warn',
-    message:
-      "Specification does not define single nullable property - please check that you didn't forget to mark nullable properties",
-    given: '$..nullable',
-    recommended: true,
-    then: {
-      function: truthy,
-    },
-    formats: [oas3],
-  },
+  // FIX: fix reporting path/ number of reports
+  // 'sf-oas3-nullable-property': {
+  //   severity: 'warn',
+  //   message:
+  //     "Specification does not define single nullable property - please check that you didn't forget to mark nullable properties",
+  //   given: '$..schema',
+  //   recommended: true,
+  //   then: {
+  //     field: 'nullable',
+  //     function: defined,
+  //   },
+  //   formats: [oas3],
+  // },
   'sf-missing-operaion-summary': {
     severity: 'hint',
     message: 'Operation must have non-empty summary property',

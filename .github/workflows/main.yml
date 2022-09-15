@@ -34,8 +34,8 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-      # - name: Test
-      #   run: yarn test --bail
+      - name: Test
+        run: yarn test --bail
 
   lint:
     runs-on: ubuntu-latest
