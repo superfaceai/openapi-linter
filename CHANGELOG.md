@@ -9,4 +9,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - custom ruleset for validating OAS with purpose of automataic codegen
-- `open-api-linter` CLI
+- `openapi-linter` CLI

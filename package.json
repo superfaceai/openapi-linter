@@ -1,7 +1,7 @@
 {
-  "name": "@superfaceai/open-api-linter",
+  "name": "@superfaceai/openapi-linter",
   "version": "0.0.1",
-  "description": "Open api validation CLI utility",
+  "description": "OpenAPI validation CLI utility",
   "main": "dist/index.js",
   "author": "Superface",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "node": "^12.20 || >= 14.13"
   },
   "bin": {
-    "open-api-linter": "bin/run",
+    "openapi-linter": "bin/run",
     "oal": "bin/run"
   },
   "files": [
@@ -62,8 +62,8 @@
     "openapi-types": "^7.0.0"
   },
   "oclif": {
-    "bin": "open-api-linter",
-    "dirname": "open-api-linter",
+    "bin": "openapi-linter",
+    "dirname": "openapi-linter",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",
