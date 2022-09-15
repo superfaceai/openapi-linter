@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "author": "Superface",
   "license": "MIT",
-  "private": true,
   "engines": {
     "node": "^12.20 || >= 14.13"
   },
