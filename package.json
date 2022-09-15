@@ -1,5 +1,5 @@
 {
-  "name": "open-api-linter",
+  "name": "@superfaceai/open-api-linter",
   "version": "0.0.1",
   "description": "Open api validation CLI utility",
   "main": "dist/index.js",
