@@ -12,7 +12,7 @@ Simple CLI to validate Open Api specification. Takes url or file path as an inpu
 ## Usage in code
 
 ```ts
-import { lint } from 'open-api-linter';
+import { lint } from 'openapi-linter';
 
 // Get specification as string
 const specification =  await fs.readFile(pathToSpec, {encoding: 'utf-8'});
@@ -27,15 +27,15 @@ console.log(lintResult);
 ## Usage as CLI
 
   <!-- commands -->
-* [`open-api-linter lint SPECIFICATIONPATH`](#open-api-linter-lint-specificationpath)
+* [`openapi-linter lint SPECIFICATIONPATH`](#openapi-linter-lint-specificationpath)
 
-## `open-api-linter lint SPECIFICATIONPATH`
+## `openapi-linter lint SPECIFICATIONPATH`
 
 Lints OpenAPI specification using three different parsers/validators.
 
 ```
 USAGE
-  $ open-api-linter lint [SPECIFICATIONPATH] [-f yaml|json] [-e error|warning|any]
+  $ openapi-linter lint [SPECIFICATIONPATH] [-f yaml|json] [-e error|warning|any]
 
 ARGUMENTS
   SPECIFICATIONPATH  Path or URL to specification file
@@ -61,7 +61,7 @@ EXAMPLES
 ```
 <!-- commandsstop -->
 
-To install a local artifact globally, symlink the binary (`ln -s bin/open-api-linter <target>`) into one of the following folders:
+To install a local artifact globally, symlink the binary (`ln -s bin/openapi-linter <target>`) into one of the following folders:
 
 - `~/.local/bin` - local binaries for your user only (may not be in `PATH` yet)
 - `/usr/local/bin` - system-wide binaries installed by the system administrator
