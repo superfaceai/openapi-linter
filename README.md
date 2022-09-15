@@ -6,10 +6,11 @@
 [![CLI built with oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Discord](https://img.shields.io/discord/819563244418105354?logo=discord&logoColor=fff)](https://sfc.is/discord)
 
-CLI and Node.js library to validate OpenAPI specification from URL or file path.
+> Is your OpenAPI Spec ready for SDK generators?
 
-OpenAPI Linter is based on [Spectral] by Stoplight with [OpenAPI rules](https://meta.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules) and custom rules.
-We use these rules to check the quality of OpenAPI specification to automatically generate well documented integration code in [Superface Integration Designer][designer], but any API client generator can benefit from well written OpenAPI specs.
+OpenAPI Linter is a CLI and a Node.js library to validate OpenAPI specification from URL or file path.
+It is based on [Spectral] by Stoplight with [OpenAPI rules](https://meta.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules) with additional rules. The goal of Linter is to check whether the spec contains enough information to generate high quality, well documented SDK.
+We use OpenAPI Linter in [Superface Integration Designer][designer], but any client code generator benefits from well written OpenAPI specs.
 
 ## Setup
 
@@ -30,9 +31,10 @@ npx @superfaceai/openapi-linter lint <file or URL>
 ## CLI commands
 
   <!-- commands -->
-* [`openapi-linter lint SPECIFICATIONPATH`](#openapi-linter-lint-specificationpath)
 
-## `openapi-linter lint SPECIFICATIONPATH`
+- [`openapi-linter lint SPECIFICATIONPATH`](#openapi-linter-lint-specificationpath)
+
+### `openapi-linter lint SPECIFICATIONPATH`
 
 Lints OpenAPI specification using three different parsers/validators.
 
@@ -62,6 +64,7 @@ EXAMPLES
 
   $ oal lint examples/petstore.yaml -f yaml
 ```
+
 <!-- commandsstop -->
 
 ## Usage in code
@@ -80,8 +83,8 @@ Use the `lint` function:
 import { lint } from 'openapi-linter';
 
 // Get specification as string
-const specification =  await fs.readFile(pathToSpec, {encoding: 'utf-8'});
-      
+const specification = await fs.readFile(pathToSpec, { encoding: 'utf-8' });
+
 // Pass specification, its extension ("yaml" or "json") and name
 const lintResult = await lint(specification, 'yaml', 'my-spec-name');
 
@@ -96,6 +99,16 @@ console.log(lintResult);
 * Each operation has to define at least one error or default response
 -->
 
+## Related projects
+
+- [Spectral], generic linter for JSON and YAML this project is based on
+- [OpenAPI Enforcer](https://openapi-enforcer.com/)
+- [OpenAPI Validator](https://github.com/IBM/openapi-validator)
+- [OAS Tools](https://oas-tools.github.io/)
+- [Redocly CLI](https://github.com/Redocly/redocly-cli)
+- [Cherrybomb](https://github.com/blst-security/cherrybomb) (Rust)
+- and [many more](https://openapi.tools/)
+
 ## Maintainers
 
 - [Jakub Vacek](https://github.com/Jakub-Vacek)
@@ -107,5 +120,5 @@ This project is licensed under the [MIT license](LICENSE).
 
 © 2022 Superface s.r.o.
 
-[Spectral]: https://stoplight.io/open-source/spectral
+[spectral]: https://stoplight.io/open-source/spectral
 [designer]: https://superface.ai/designer
