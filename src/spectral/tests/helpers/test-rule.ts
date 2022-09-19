@@ -1,4 +1,4 @@
-import { Document, IRuleResult, Spectral } from '@stoplight/spectral-core';
+import { IRuleResult, Spectral } from '@stoplight/spectral-core';
 import { RuleDefinition } from '@stoplight/spectral-core/dist/ruleset/types';
 import { httpAndFileResolver } from '@stoplight/spectral-ref-resolver';
 
@@ -11,7 +11,7 @@ export type RuleName = keyof typeof automatonSpecificRuleset;
 type Scenario = ReadonlyArray<
   Readonly<{
     name: string;
-    document: Record<string, unknown> | Document<unknown, any>;
+    document: Record<string, unknown>;
     errors: ReadonlyArray<Partial<IRuleResult>> | null;
   }>
 >;
@@ -21,10 +21,7 @@ export function testRule(ruleName: RuleName, tests: Scenario): void {
     for (const testCase of tests) {
       it(testCase.name, async () => {
         const s = createWithRules([ruleName]);
-        const doc =
-          testCase.document instanceof Document
-            ? testCase.document
-            : JSON.stringify(testCase.document);
+        const doc = JSON.stringify(testCase.document);
         const errors = await s.run(doc);
         if (testCase.errors === null) {
           expect(errors.filter(({ code }) => code === ruleName)).toEqual([]);
