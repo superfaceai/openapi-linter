@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from '@stoplight/types';
 
 import { testRule } from './helpers/test-rule';
 
-testRule('sf-missing-operaion-summary', [
+testRule('sf-missing-operation-summary', [
   {
     name: 'annotates with correct paths',
     document: {

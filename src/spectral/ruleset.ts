@@ -128,7 +128,7 @@ export const automatonSpecificRuleset: Record<
   //   },
   //   formats: [oas3],
   // },
-  'sf-missing-operaion-summary': {
+  'sf-missing-operation-summary': {
     severity: 'hint',
     message: 'Operation must have non-empty summary property',
     given: '#OperationObject',
