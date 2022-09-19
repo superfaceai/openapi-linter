@@ -1,35 +1,40 @@
-# Open api linter
+# OpenAPI Linter
 
-![TypeScript](https://img.shields.io/badge/%3C%2F%3E-Typescript-blue)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/superfaceai/openapi-linter/CI)](https://github.com/superfaceai/openapi-linter/actions/workflows/main.yml)
+[![npm](https://img.shields.io/npm/v/@superfaceai/openapi-linter)](https://www.npmjs.com/package/@superfaceai/openapi-linter)
+[![license](https://img.shields.io/npm/l/@superfaceai/openapi-linter)](LICENSE)
+[![CLI built with oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![Discord](https://img.shields.io/discord/819563244418105354?logo=discord&logoColor=fff)](https://sfc.is/discord)
 
-Simple CLI to validate Open Api specification. Takes url or file path as an input. It uses Spectral OAS ruleset with custom rules. Main goal is to ensure sufficient quality of Open Api specification to be used in Integration Designer or other tool that generates well documented client code from Open Api Specification.
+> Is your OpenAPI Spec ready for SDK generators?
 
-## Added rules(WIP)
-* Each operation has to define at least one success response
-* Each operation has to define at least one error or default response
+OpenAPI Linter is a CLI and a Node.js library to validate OpenAPI specification.
+It is based on [Spectral] by Stoplight with [OpenAPI rules](https://meta.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules) with additional rules. The goal of Linter is to check whether the spec contains enough information to generate high quality, well documented SDK.
+We use OpenAPI Linter in [Superface Integration Designer][designer], but any client code generator benefits from well written OpenAPI specs.
 
+## Setup
 
-## Usage in code
+Install from npm globally:
 
-```ts
-import { lint } from 'openapi-linter';
-
-// Get specification as string
-const specification =  await fs.readFile(pathToSpec, {encoding: 'utf-8'});
-      
-// Pass specification, its extension ("yaml" or "json") and name
-const lintResult = await lint(specification, 'yaml', 'my-spec-name');
-
-//Do something with result
-console.log(lintResult);
+```shell
+npm i -g @superfaceai/openapi-linter
 ```
 
-## Usage as CLI
+Now you can use the linter with commands `openapi-linter` or `oal`.
+
+Alternatively you can use the linter without installation with `npx`:
+
+```
+npx @superfaceai/openapi-linter lint <file or URL>
+```
+
+## CLI commands
 
   <!-- commands -->
-* [`openapi-linter lint SPECIFICATIONPATH`](#openapi-linter-lint-specificationpath)
 
-## `openapi-linter lint SPECIFICATIONPATH`
+- [`openapi-linter lint SPECIFICATIONPATH`](#openapi-linter-lint-specificationpath)
+
+### `openapi-linter lint SPECIFICATIONPATH`
 
 Lints OpenAPI specification using three different parsers/validators.
 
@@ -59,21 +64,61 @@ EXAMPLES
 
   $ oal lint examples/petstore.yaml -f yaml
 ```
+
 <!-- commandsstop -->
 
-To install a local artifact globally, symlink the binary (`ln -s bin/openapi-linter <target>`) into one of the following folders:
+## Usage in code
 
-- `~/.local/bin` - local binaries for your user only (may not be in `PATH` yet)
-- `/usr/local/bin` - system-wide binaries installed by the system administrator
-- output of `yarn global bin` - usually the same as `/use/local/bin`
+Install the linter as a dependency into your project:
 
-*You can do it with `npm link`*
+```shell
+npm i @superfaceai/openapi-linter
+```
+
+Use the `lint` function:
+
+<!-- TODO: Add example what's in lintResult -->
+
+```ts
+import { lint } from 'openapi-linter';
+
+// Get specification as string
+const specification = await fs.readFile(pathToSpec, { encoding: 'utf-8' });
+
+// Pass specification, its extension ("yaml" or "json") and name
+const lintResult = await lint(specification, 'yaml', 'my-spec-name');
+
+//Do something with result
+console.log(lintResult);
+```
+
+<!-- TODO
+## Added rules (WIP)
+
+* Each operation has to define at least one success response
+* Each operation has to define at least one error or default response
+-->
+
+## Related projects
+
+- [Spectral], generic linter for JSON and YAML this project is based on
+- [OpenAPI Enforcer](https://openapi-enforcer.com/)
+- [OpenAPI Validator](https://github.com/IBM/openapi-validator)
+- [OAS Tools](https://oas-tools.github.io/)
+- [Redocly CLI](https://github.com/Redocly/redocly-cli)
+- [Cherrybomb](https://github.com/blst-security/cherrybomb) (Rust)
+- and [many more](https://openapi.tools/)
 
 ## Maintainers
 
-- [@Jakub Vacek](https://github.com/Jakub-Vacek)
+- [Jakub Vacek](https://github.com/Jakub-Vacek)
+- [Radek Kyselý](https://github.com/kysely)
 
 ## License
 
-This repository is licensed under the [MIT](LICENSE).
-© 2022
+This project is licensed under the [MIT license](LICENSE).
+
+© 2022 Superface s.r.o.
+
+[spectral]: https://stoplight.io/open-source/spectral
+[designer]: https://superface.ai/designer
