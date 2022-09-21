@@ -13,6 +13,7 @@ import contentNegotiation from './functions/oas2-content-negotiation';
 import oas2UnsupportedMediaType from './functions/oas2-unsupported-media-type';
 import oas3UnsupportedMediaType from './functions/oas3-unsupported-media-type';
 import operationErrorResponse from './functions/operation-error-response';
+import sfOas3MissingSchemaPropertyExample from './functions/sf-oas3-missing-schema-property-example';
 
 export const automatonSpecificRuleset: Record<
   string,
@@ -143,14 +144,13 @@ export const automatonSpecificRuleset: Record<
     severity: 'hint',
     message: 'Each property should define "example" value',
     given: [
-      '$.components.schemas..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
-      '$..content..properties[?(@ && (@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false)))]',
-      '$..parameters..properties[?(@ && !@.properties && !@.items && !@.enum && (!@.example && @.example !== false))]',
-      //TODO: cases when we dont have object in schema (there are no properties)
+      '$.components.schemas.*',
+      '$..content..schema',
+      '$..parameters..schema',
     ],
     recommended: true,
     then: {
-      function: Undefined,
+      function: sfOas3MissingSchemaPropertyExample,
     },
     formats: [oas3],
   },

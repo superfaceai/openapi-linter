@@ -4,7 +4,7 @@ import { testRule } from './helpers/test-rule';
 
 testRule('sf-oas3-missing-schema-property-example', [
   {
-    name: 'annotates with correct paths - missing example in components',
+    name: 'annotates with correct paths - missing example in components - object schema',
     document: {
       openapi: '3.0.0',
       components: {
@@ -23,6 +23,49 @@ testRule('sf-oas3-missing-schema-property-example', [
       {
         message: 'Each property should define "example" value',
         path: ['components', 'schemas', 'test', 'properties', 'test'],
+        severity: DiagnosticSeverity.Hint,
+      },
+    ],
+  },
+  {
+    name: 'annotates with correct paths - missing example in components - primitive schema',
+    document: {
+      openapi: '3.0.0',
+      components: {
+        schemas: {
+          test: {
+            type: 'string',
+          },
+        },
+      },
+    },
+    errors: [
+      {
+        message: 'Each property should define "example" value',
+        path: ['components', 'schemas', 'test'],
+        severity: DiagnosticSeverity.Hint,
+      },
+    ],
+  },
+  {
+    name: 'annotates with correct paths - missing example in components - array schema',
+    document: {
+      openapi: '3.0.0',
+      components: {
+        schemas: {
+          test: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
+    errors: [
+      {
+        message: 'Each property should define "example" value',
+        path: ['components', 'schemas', 'test', 'items'],
         severity: DiagnosticSeverity.Hint,
       },
     ],

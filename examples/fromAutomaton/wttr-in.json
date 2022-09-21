@@ -17,7 +17,9 @@
   "paths": {
     "/{city}": {
       "get": {
-        "tags": ["Current Weather Data"],
+        "tags": [
+          "Current Weather Data"
+        ],
         "summary": "Call current weather data for one location",
         "description": "Access current weather data for any city.",
         "operationId": "CurrentWeatherData",
