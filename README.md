@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/@superfaceai/openapi-linter)](https://www.npmjs.com/package/@superfaceai/openapi-linter)
 [![license](https://img.shields.io/npm/l/@superfaceai/openapi-linter)](LICENSE)
 [![CLI built with oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Discord](https://img.shields.io/discord/819563244418105354?logo=discord&logoColor=fff)](https://sfc.is/discord)
+[![GitHub Discussions](https://img.shields.io/github/discussions/superfaceai/.github?logo=github&logoColor=fff)](https://github.com/orgs/superfaceai/discussions)
 
 > Is your OpenAPI Spec ready for SDK generators?
 
@@ -118,7 +118,7 @@ console.log(lintResult);
 
 This project is licensed under the [MIT license](LICENSE).
 
-© 2022 Superface s.r.o.
+© 2023 Superface s.r.o.
 
 [spectral]: https://stoplight.io/open-source/spectral
 [designer]: https://superface.ai/designer
